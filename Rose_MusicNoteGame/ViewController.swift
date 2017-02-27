@@ -11,22 +11,22 @@ import AVFoundation
 
 class ViewController: UIViewController {
 	
-	var Notes = [String:URL]()
-	var player = AVAudioPlayer()
+	static var Notes = [String:URL]()
+	static var player = AVAudioPlayer()
 	
 	private func loadNotes() {
-		Notes["A"] = Bundle.main.url(forResource: "A", withExtension: "mp3", subdirectory: "Notes")!
-		Notes["A#"] = Bundle.main.url(forResource: "A#", withExtension: "mp3", subdirectory: "Notes")!
-		Notes["B"] = Bundle.main.url(forResource: "B", withExtension: "mp3", subdirectory: "Notes")!
-		Notes["C"] = Bundle.main.url(forResource: "C", withExtension: "mp3", subdirectory: "Notes")!
-		Notes["C#"] = Bundle.main.url(forResource: "C#", withExtension: "mp3", subdirectory: "Notes")!
-		Notes["D"] = Bundle.main.url(forResource: "D", withExtension: "mp3", subdirectory: "Notes")!
-		Notes["D#"] = Bundle.main.url(forResource: "D#", withExtension: "mp3", subdirectory: "Notes")!
-		Notes["E"] = Bundle.main.url(forResource: "E", withExtension: "mp3", subdirectory: "Notes")!
-		Notes["F"] = Bundle.main.url(forResource: "F", withExtension: "mp3", subdirectory: "Notes")!
-		Notes["F#"] = Bundle.main.url(forResource: "F#", withExtension: "mp3", subdirectory: "Notes")!
-		Notes["G"] = Bundle.main.url(forResource: "G", withExtension: "mp3", subdirectory: "Notes")!
-		Notes["G#"] = Bundle.main.url(forResource: "G#", withExtension: "mp3", subdirectory: "Notes")!
+		ViewController.Notes["A"] = Bundle.main.url(forResource: "A", withExtension: "mp3", subdirectory: "Notes")!
+		ViewController.Notes["A#"] = Bundle.main.url(forResource: "A#", withExtension: "mp3", subdirectory: "Notes")!
+		ViewController.Notes["B"] = Bundle.main.url(forResource: "B", withExtension: "mp3", subdirectory: "Notes")!
+		ViewController.Notes["C"] = Bundle.main.url(forResource: "C", withExtension: "mp3", subdirectory: "Notes")!
+		ViewController.Notes["C#"] = Bundle.main.url(forResource: "C#", withExtension: "mp3", subdirectory: "Notes")!
+		ViewController.Notes["D"] = Bundle.main.url(forResource: "D", withExtension: "mp3", subdirectory: "Notes")!
+		ViewController.Notes["D#"] = Bundle.main.url(forResource: "D#", withExtension: "mp3", subdirectory: "Notes")!
+		ViewController.Notes["E"] = Bundle.main.url(forResource: "E", withExtension: "mp3", subdirectory: "Notes")!
+		ViewController.Notes["F"] = Bundle.main.url(forResource: "F", withExtension: "mp3", subdirectory: "Notes")!
+		ViewController.Notes["F#"] = Bundle.main.url(forResource: "F#", withExtension: "mp3", subdirectory: "Notes")!
+		ViewController.Notes["G"] = Bundle.main.url(forResource: "G", withExtension: "mp3", subdirectory: "Notes")!
+		ViewController.Notes["G#"] = Bundle.main.url(forResource: "G#", withExtension: "mp3", subdirectory: "Notes")!
 	}
 	
 	@IBAction func noteButtonPressed(_ sender: UIButton) {
@@ -35,8 +35,8 @@ class ViewController: UIViewController {
 	}
 	
 	func play(note: String) {
-		player = try! AVAudioPlayer(contentsOf: Notes[note]!)
-		player.play()
+		ViewController.player = try! AVAudioPlayer(contentsOf: ViewController.Notes[note]!)
+		ViewController.player.play()
 	}
 	
 	

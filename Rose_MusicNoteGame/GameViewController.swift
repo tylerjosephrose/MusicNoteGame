@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import AVFoundation
 
 class GameViewController: UIViewController {
 
@@ -17,10 +18,21 @@ class GameViewController: UIViewController {
 		print(sender.titleLabel!)
 	}
 	
+	func randomNote() -> String {
+		return Array(ViewController.Notes.keys)[Int(arc4random_uniform(UInt32(ViewController.Notes.count)))]
+	}
+	
+	func play(note: String) {
+		ViewController.player = try! AVAudioPlayer(contentsOf: ViewController.Notes[note]!)
+		ViewController.player.play()
+	}
+	
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
+		let note = randomNote()
+		print(note)
+		play(note: note)
     }
 
     override func didReceiveMemoryWarning() {
