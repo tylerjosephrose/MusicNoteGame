@@ -13,11 +13,15 @@ class GameViewController: UIViewController {
 
 	@IBOutlet weak var RoundLbl: UILabel!
 	@IBOutlet weak var AnswerLbl: UILabel!
+	@IBOutlet weak var CorrectAnswerLbl: UILabel!
 	private var note: String!
 	private var round = 1
 	
 	@IBAction func noteBtnPressed(_ sender: UIButton) {
 		print(sender.titleLabel!)
+		if round > 5 {
+			return
+		}
 		
 		if evaluate(guess: sender.currentTitle!) {
 			AnswerLbl.text = "Correct!"
@@ -27,23 +31,47 @@ class GameViewController: UIViewController {
 			AnswerLbl.textColor = UIColor.red
 		}
 		round += 1
-		playGame()
+		Timer.scheduledTimer(timeInterval: 3, target: self, selector: #selector (GameViewController.playGame), userInfo: nil, repeats: false)
 	}
 	
 	private func evaluate(guess: String) -> Bool {
 		if guess == note {
+			CorrectAnswerLbl.text = note
 			return true
 		}
+		CorrectAnswerLbl.text = note
 		return false
 	}
 	
-	private func playGame() {
+	func resetRound() {
+		CorrectAnswerLbl.text = ""
+		AnswerLbl.text = ""
+	}
+	
+	func playGame() {
+		resetRound()
 		if round <= 5 {
 			RoundLbl.text = String(round)
 			note = randomNote()
 			print(note)
 			playNote()
+		} else {
+			let endGameAlert = UIAlertController(title: "Game Over", message: "Play Again?", preferredStyle: .alert)
+			let yes = UIAlertAction(title: "Yes", style: .default, handler: newGame)
+			let no = UIAlertAction(title: "No", style: .default, handler: endGame)
+			endGameAlert.addAction(yes)
+			endGameAlert.addAction(no)
+			present(endGameAlert, animated: true, completion: nil)
 		}
+	}
+	
+	func endGame(alertAction: UIAlertAction) {
+		_ = navigationController?.popViewController(animated: true)
+	}
+	
+	func newGame(alertAction: UIAlertAction) {
+		round = 1
+		playGame()
 	}
 	
 	private func randomNote() -> String {
