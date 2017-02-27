@@ -13,16 +13,44 @@ class GameViewController: UIViewController {
 
 	@IBOutlet weak var RoundLbl: UILabel!
 	@IBOutlet weak var AnswerLbl: UILabel!
+	private var note: String!
+	private var round = 1
 	
 	@IBAction func noteBtnPressed(_ sender: UIButton) {
 		print(sender.titleLabel!)
+		
+		if evaluate(guess: sender.currentTitle!) {
+			AnswerLbl.text = "Correct!"
+			AnswerLbl.textColor = UIColor.green
+		} else {
+			AnswerLbl.text = "Incorrect"
+			AnswerLbl.textColor = UIColor.red
+		}
+		round += 1
+		playGame()
 	}
 	
-	func randomNote() -> String {
+	private func evaluate(guess: String) -> Bool {
+		if guess == note {
+			return true
+		}
+		return false
+	}
+	
+	private func playGame() {
+		if round <= 5 {
+			RoundLbl.text = String(round)
+			note = randomNote()
+			print(note)
+			playNote()
+		}
+	}
+	
+	private func randomNote() -> String {
 		return Array(ViewController.Notes.keys)[Int(arc4random_uniform(UInt32(ViewController.Notes.count)))]
 	}
 	
-	func play(note: String) {
+	private func playNote() {
 		ViewController.player = try! AVAudioPlayer(contentsOf: ViewController.Notes[note]!)
 		ViewController.player.play()
 	}
@@ -30,9 +58,7 @@ class GameViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-		let note = randomNote()
-		print(note)
-		play(note: note)
+		playGame()
     }
 
     override func didReceiveMemoryWarning() {
