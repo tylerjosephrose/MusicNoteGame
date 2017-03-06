@@ -283,7 +283,7 @@
                                         <rect key="frame" x="152" y="430.5" width="39" height="86.5"/>
                                         <state key="normal" title="Reset"/>
                                         <connections>
-                                            <action selector="resetStats:" destination="uQq-mb-aGS" eventType="touchUpInside" id="nTF-M4-nkn"/>
+                                            <action selector="resetStats:" destination="uQq-mb-aGS" eventType="touchUpInside" id="64s-Dx-qde"/>
                                         </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kpQ-oW-bZw">
@@ -531,9 +531,22 @@
                         <color key="backgroundColor" red="0.33374733049999999" green="0.82424126090000005" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </view>
                     <connections>
+                        <outlet property="ABtn" destination="Q3S-9m-4Fb" id="XFS-vD-CXH"/>
                         <outlet property="AnswerLbl" destination="0Ym-5f-GyK" id="6z5-0S-E5K"/>
+                        <outlet property="AsBtn" destination="Hcq-Ni-voD" id="Kar-dN-SvD"/>
+                        <outlet property="BBtn" destination="LOM-HF-Q6y" id="LRa-Cl-SXp"/>
+                        <outlet property="CBtn" destination="vAg-Aj-ehM" id="fEp-wE-b0B"/>
                         <outlet property="CorrectAnswerLbl" destination="jUl-Oh-ptv" id="zfl-rz-fmf"/>
+                        <outlet property="CsBtn" destination="63v-pc-xWG" id="LmT-IW-RBt"/>
+                        <outlet property="DBtn" destination="cyL-je-HTa" id="Eyb-KN-i5m"/>
+                        <outlet property="DsBtn" destination="8J9-G3-Mpz" id="FFg-lt-kgl"/>
+                        <outlet property="EBtn" destination="vj5-gl-SXc" id="wS0-0a-T8Y"/>
+                        <outlet property="FBtn" destination="9ia-DR-a12" id="1tK-wu-6Cc"/>
+                        <outlet property="FsBtn" destination="ihh-XE-T9D" id="OPB-4h-l7Z"/>
+                        <outlet property="GBtn" destination="IpX-KQ-QFL" id="DfJ-cH-jX3"/>
+                        <outlet property="GsBtn" destination="ftY-Hc-UzV" id="ygG-Dt-k4J"/>
                         <outlet property="RoundLbl" destination="bHj-tv-gdH" id="EJW-bg-J7a"/>
+                        <outletCollection property="RoundLbl" destination="bHj-tv-gdH" id="1xo-e7-gxS"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jfv-mS-BTo" userLabel="First Responder" sceneMemberID="firstResponder"/>

@@ -11,13 +11,24 @@ import AVFoundation
 
 class GameViewController: UIViewController {
 
+	@IBOutlet weak var ABtn: UIButton!
+	@IBOutlet weak var AsBtn: UIButton!
+	@IBOutlet weak var BBtn: UIButton!
+	@IBOutlet weak var CBtn: UIButton!
+	@IBOutlet weak var CsBtn: UIButton!
+	@IBOutlet weak var DBtn: UIButton!
+	@IBOutlet weak var DsBtn: UIButton!
+	@IBOutlet weak var EBtn: UIButton!
+	@IBOutlet weak var FBtn: UIButton!
+	@IBOutlet weak var FsBtn: UIButton!
+	@IBOutlet weak var GBtn: UIButton!
+	@IBOutlet weak var GsBtn: UIButton!
 	@IBOutlet weak var RoundLbl: UILabel!
 	@IBOutlet weak var AnswerLbl: UILabel!
 	@IBOutlet weak var CorrectAnswerLbl: UILabel!
 	private var note: String!
 	private var round = 1
 	private var score = 0
-	private var readyForAnswer = true
 	
 	@IBAction func noteBtnPressed(_ sender: UIButton) {
 		print(sender.titleLabel!)
@@ -25,9 +36,9 @@ class GameViewController: UIViewController {
 			return
 		}
 		
-		if readyForAnswer == false {
+		/*if readyForAnswer == false {
 			return
-		}
+		}*/
 		
 		if evaluate(guess: sender.currentTitle!) {
 			AnswerLbl.text = "Correct!"
@@ -40,8 +51,38 @@ class GameViewController: UIViewController {
 		Timer.scheduledTimer(timeInterval: 3, target: self, selector: #selector (GameViewController.playGame), userInfo: nil, repeats: false)
 	}
 	
+	private func disableButtons() {
+		ABtn.isEnabled = false
+		AsBtn.isEnabled = false
+		BBtn.isEnabled = false
+		CBtn.isEnabled = false
+		CsBtn.isEnabled = false
+		DBtn.isEnabled = false
+		DsBtn.isEnabled = false
+		EBtn.isEnabled = false
+		FBtn.isEnabled = false
+		FsBtn.isEnabled = false
+		GBtn.isEnabled = false
+		GsBtn.isEnabled = false
+	}
+	
+	private func enableButtons() {
+		ABtn.isEnabled = true
+		AsBtn.isEnabled = true
+		BBtn.isEnabled = true
+		CBtn.isEnabled = true
+		CsBtn.isEnabled = true
+		DBtn.isEnabled = true
+		DsBtn.isEnabled = true
+		EBtn.isEnabled = true
+		FBtn.isEnabled = true
+		FsBtn.isEnabled = true
+		GBtn.isEnabled = true
+		GsBtn.isEnabled = true
+	}
+	
 	private func evaluate(guess: String) -> Bool {
-		readyForAnswer = false
+		disableButtons()
 		if guess == note {
 			CorrectAnswerLbl.text = note
 			score += 1
@@ -63,7 +104,7 @@ class GameViewController: UIViewController {
 			note = randomNote()
 			print(note)
 			playNote()
-			readyForAnswer = true
+			enableButtons()
 		} else {
 			updateStats()
 			let message = "Score: " + String(score) + "\nPlay Again?"
