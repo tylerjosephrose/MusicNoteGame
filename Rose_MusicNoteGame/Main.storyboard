@@ -6,6 +6,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -331,7 +332,7 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <attributedString key="attributedText">
                                     <fragment>
-                                        <string key="content">This app is for the use of learning notes. In the game, a series of notes will be played and you need to guess the note that was played. One point will be awarded for each correct answer. You may practice using the main screen of the app.</string>
+                                        <string key="content">This app is for the use of learning notes. In the game, a series of notes will be played and you need to guess the note that was played. Five points will be awarded for each correct answer and two points will be added for each answer within a half step of the right answer. There are a total of five rounds. To replay the note, simply tap the note on the game screen. You may practice using the main screen of the app.</string>
                                         <attributes>
                                             <font key="NSFont" metaFont="system" size="17"/>
                                             <paragraphStyle key="NSParagraphStyle" alignment="justified" lineBreakMode="wordWrapping" baseWritingDirection="natural" lineHeightMultiple="2" tighteningFactorForTruncation="0.0"/>
@@ -527,8 +528,23 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zDs-Nf-5Pr">
+                                <rect key="frame" x="133" y="154" width="108" height="130"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="zDs-Nf-5Pr" secondAttribute="height" multiplier="53:64" id="1Il-jU-WNw"/>
+                                    <constraint firstAttribute="height" constant="130" id="pg3-iW-ypb"/>
+                                </constraints>
+                                <state key="normal" image="music-25705"/>
+                                <connections>
+                                    <action selector="replayNote:" destination="mjC-5k-oQm" eventType="touchUpInside" id="HFv-PQ-C2f"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="0.33374733049999999" green="0.82424126090000005" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="zDs-Nf-5Pr" firstAttribute="leading" secondItem="xko-Gx-hTF" secondAttribute="leadingMargin" constant="117" id="ayO-52-q4d"/>
+                            <constraint firstItem="zDs-Nf-5Pr" firstAttribute="top" secondItem="2FH-c3-T7t" secondAttribute="bottom" constant="90" id="oZT-Eb-1p6"/>
+                        </constraints>
                     </view>
                     <connections>
                         <outlet property="ABtn" destination="Q3S-9m-4Fb" id="XFS-vD-CXH"/>
@@ -545,6 +561,7 @@
                         <outlet property="FsBtn" destination="ihh-XE-T9D" id="OPB-4h-l7Z"/>
                         <outlet property="GBtn" destination="IpX-KQ-QFL" id="DfJ-cH-jX3"/>
                         <outlet property="GsBtn" destination="ftY-Hc-UzV" id="ygG-Dt-k4J"/>
+                        <outlet property="MusicNoteBtn" destination="zDs-Nf-5Pr" id="MwQ-32-w2c"/>
                         <outlet property="RoundLbl" destination="bHj-tv-gdH" id="EJW-bg-J7a"/>
                         <outletCollection property="RoundLbl" destination="bHj-tv-gdH" id="1xo-e7-gxS"/>
                     </connections>
@@ -572,4 +589,7 @@
             <point key="canvasLocation" x="141.59999999999999" y="-545.57721139430294"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="music-25705" width="1590" height="1920"/>
+    </resources>
 </document>

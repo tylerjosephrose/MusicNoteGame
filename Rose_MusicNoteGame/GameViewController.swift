@@ -26,7 +26,9 @@ class GameViewController: UIViewController {
 	@IBOutlet weak var RoundLbl: UILabel!
 	@IBOutlet weak var AnswerLbl: UILabel!
 	@IBOutlet weak var CorrectAnswerLbl: UILabel!
+	@IBOutlet weak var MusicNoteBtn: UIButton!
 	private var note: String!
+	private var noteInt: Int!
 	private var round = 1
 	private var score = 0
 	
@@ -36,19 +38,24 @@ class GameViewController: UIViewController {
 			return
 		}
 		
-		/*if readyForAnswer == false {
-			return
-		}*/
+		let pointsAwarded = evaluate(guess: sender.currentTitle!)
 		
-		if evaluate(guess: sender.currentTitle!) {
+		if pointsAwarded == 5 {
 			AnswerLbl.text = "Correct!"
 			AnswerLbl.textColor = UIColor.green
+		} else if pointsAwarded == 2 {
+			AnswerLbl.text = "Close!"
+			AnswerLbl.textColor = UIColor.yellow
 		} else {
 			AnswerLbl.text = "Incorrect"
 			AnswerLbl.textColor = UIColor.red
 		}
 		round += 1
 		Timer.scheduledTimer(timeInterval: 3, target: self, selector: #selector (GameViewController.playGame), userInfo: nil, repeats: false)
+	}
+	
+	@IBAction func replayNote(_ sender: UIButton) {
+		playNote()
 	}
 	
 	private func disableButtons() {
@@ -81,15 +88,43 @@ class GameViewController: UIViewController {
 		GsBtn.isEnabled = true
 	}
 	
-	private func evaluate(guess: String) -> Bool {
+	private func closeToAnswer(guess: String) -> Bool {
+		if noteInt + 1 < ViewController.NotesArray.count {
+			if ViewController.NotesArray[noteInt + 1] == guess {
+				return true
+			}
+		} else {
+			if ViewController.NotesArray[0] == guess {
+				return true
+			}
+		}
+		
+		if noteInt > 0 {
+			if ViewController.NotesArray[noteInt - 1] == guess {
+				return true
+			}
+		} else {
+			if ViewController.NotesArray[ViewController.NotesArray.count - 1] == guess {
+				return true
+			}
+		}
+		return false
+	}
+	
+	private func evaluate(guess: String) -> Int {
 		disableButtons()
 		if guess == note {
 			CorrectAnswerLbl.text = note
-			score += 1
-			return true
+			score += 5
+			return 5
+		}
+		if closeToAnswer(guess: guess) {
+			CorrectAnswerLbl.text = note
+			score += 2
+			return 2
 		}
 		CorrectAnswerLbl.text = note
-		return false
+		return 0
 	}
 	
 	func resetRound() {
@@ -101,7 +136,7 @@ class GameViewController: UIViewController {
 		resetRound()
 		if round <= 5 {
 			RoundLbl.text = String(round)
-			note = randomNote()
+			randomNote()
 			print(note)
 			playNote()
 			enableButtons()
@@ -144,13 +179,28 @@ class GameViewController: UIViewController {
 		playGame()
 	}
 	
-	private func randomNote() -> String {
-		return Array(ViewController.Notes.keys)[Int(arc4random_uniform(UInt32(ViewController.Notes.count)))]
+	private func randomNote() {
+		noteInt = Int(arc4random_uniform(UInt32(ViewController.Notes.count)))
+		note = ViewController.NotesArray[noteInt]
 	}
 	
 	private func playNote() {
 		ViewController.player = try! AVAudioPlayer(contentsOf: ViewController.Notes[note]!)
 		ViewController.player.play()
+		animateNote()
+	}
+	
+	private func animateNote() {
+		UIView.animate(withDuration: 0.5, animations: {self.MusicNoteBtn.transform = CGAffineTransform(scaleX: 1.2, y: 1.2)})
+		{ (success) in
+			UIView.animate(withDuration: 0.5, animations: {self.MusicNoteBtn.transform = CGAffineTransform(scaleX: 1, y: 1)})
+			{ (success) in
+				UIView.animate(withDuration: 0.5, animations: {self.MusicNoteBtn.transform = CGAffineTransform(scaleX: 1.2, y: 1.2)})
+				{ (success) in
+					UIView.animate(withDuration: 0.5, animations: {self.MusicNoteBtn.transform = CGAffineTransform(scaleX: 1, y: 1)})
+				}
+			}
+		}
 	}
 	
     override func viewDidLoad() {

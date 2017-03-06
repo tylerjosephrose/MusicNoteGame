@@ -12,6 +12,7 @@ import AVFoundation
 class ViewController: UIViewController {
 	
 	static var Notes = [String:URL]()
+	static var NotesArray = [String]()
 	static var player = AVAudioPlayer()
 	
 	private func loadNotes() {
@@ -27,6 +28,18 @@ class ViewController: UIViewController {
 		ViewController.Notes["F#"] = Bundle.main.url(forResource: "F#", withExtension: "mp3", subdirectory: "Notes")!
 		ViewController.Notes["G"] = Bundle.main.url(forResource: "G", withExtension: "mp3", subdirectory: "Notes")!
 		ViewController.Notes["G#"] = Bundle.main.url(forResource: "G#", withExtension: "mp3", subdirectory: "Notes")!
+		ViewController.NotesArray.append("A")
+		ViewController.NotesArray.append("A#")
+		ViewController.NotesArray.append("B")
+		ViewController.NotesArray.append("C")
+		ViewController.NotesArray.append("C#")
+		ViewController.NotesArray.append("D")
+		ViewController.NotesArray.append("D#")
+		ViewController.NotesArray.append("E")
+		ViewController.NotesArray.append("F")
+		ViewController.NotesArray.append("F#")
+		ViewController.NotesArray.append("G")
+		ViewController.NotesArray.append("G#")
 	}
 	
 	@IBAction func noteButtonPressed(_ sender: UIButton) {
