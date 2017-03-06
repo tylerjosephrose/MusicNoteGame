@@ -16,6 +16,7 @@ class GameViewController: UIViewController {
 	@IBOutlet weak var CorrectAnswerLbl: UILabel!
 	private var note: String!
 	private var round = 1
+	private var score = 0
 	
 	@IBAction func noteBtnPressed(_ sender: UIButton) {
 		print(sender.titleLabel!)
@@ -37,6 +38,7 @@ class GameViewController: UIViewController {
 	private func evaluate(guess: String) -> Bool {
 		if guess == note {
 			CorrectAnswerLbl.text = note
+			score += 1
 			return true
 		}
 		CorrectAnswerLbl.text = note
@@ -56,7 +58,8 @@ class GameViewController: UIViewController {
 			print(note)
 			playNote()
 		} else {
-			let endGameAlert = UIAlertController(title: "Game Over", message: "Play Again?", preferredStyle: .alert)
+			let message = "Score: " + String(score) + "\nPlay Again?"
+			let endGameAlert = UIAlertController(title: "Game Over", message: message, preferredStyle: .alert)
 			let yes = UIAlertAction(title: "Yes", style: .default, handler: newGame)
 			let no = UIAlertAction(title: "No", style: .default, handler: endGame)
 			endGameAlert.addAction(yes)
@@ -71,6 +74,7 @@ class GameViewController: UIViewController {
 	
 	func newGame(alertAction: UIAlertAction) {
 		round = 1
+		score = 0
 		playGame()
 	}
 	
