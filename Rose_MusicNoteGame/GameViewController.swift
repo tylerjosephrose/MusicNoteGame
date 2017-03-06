@@ -17,10 +17,15 @@ class GameViewController: UIViewController {
 	private var note: String!
 	private var round = 1
 	private var score = 0
+	private var readyForAnswer = true
 	
 	@IBAction func noteBtnPressed(_ sender: UIButton) {
 		print(sender.titleLabel!)
 		if round > 5 {
+			return
+		}
+		
+		if readyForAnswer == false {
 			return
 		}
 		
@@ -36,6 +41,7 @@ class GameViewController: UIViewController {
 	}
 	
 	private func evaluate(guess: String) -> Bool {
+		readyForAnswer = false
 		if guess == note {
 			CorrectAnswerLbl.text = note
 			score += 1
@@ -57,7 +63,9 @@ class GameViewController: UIViewController {
 			note = randomNote()
 			print(note)
 			playNote()
+			readyForAnswer = true
 		} else {
+			updateStats()
 			let message = "Score: " + String(score) + "\nPlay Again?"
 			let endGameAlert = UIAlertController(title: "Game Over", message: message, preferredStyle: .alert)
 			let yes = UIAlertAction(title: "Yes", style: .default, handler: newGame)
@@ -65,6 +73,23 @@ class GameViewController: UIViewController {
 			endGameAlert.addAction(yes)
 			endGameAlert.addAction(no)
 			present(endGameAlert, animated: true, completion: nil)
+		}
+	}
+	
+	private func updateStats() {
+		let stats = UserDefaults.standard
+		stats.set(stats.integer(forKey: "NumOfGames") + 1, forKey: "NumOfGames")
+		stats.set(score, forKey: "LatestScore")
+		// If this is the first game played, we need to set the high and low scores automatically
+		if stats.integer(forKey: "NumOfGames") == 1 {
+			stats.set(score, forKey: "HighestScore")
+			stats.set(score, forKey: "LowestScore")
+		} else {
+			if score > stats.integer(forKey: "HighestScore") {
+				stats.set(score, forKey: "HighestScore")
+			} else if score < stats.integer(forKey: "LowestScore") {
+				stats.set(score, forKey: "LowestScore")
+			}
 		}
 	}
 	
